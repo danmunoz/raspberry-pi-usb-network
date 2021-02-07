@@ -1,0 +1,23 @@
+---
+# Changes to be made to the config.txt file.
+config_txt_changes:
+  # Enable USB OTG mode.
+  - option: dtoverlay
+    value: dwc2
+  # Set frame buffer width.
+  - option: framebuffer_width
+    value: 1024
+  # Set frame buffer height.
+  - option: framebuffer_height
+    value: 768
+
+# Changes to be made to the usb file.
+usb_changes:
+  - option: interface
+    value: usb0
+  - option: dhcp-range
+    value: 10.55.0.2,10.55.0.6,255.255.255.248,1h
+  - option: dhcp-option
+    value: 3
+  - option: leasefile-ro
+    value: 

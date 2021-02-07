@@ -1,0 +1,14 @@
+---
+- hosts: pi
+  become: true
+  gather_facts: false
+
+  vars_files:
+    - config.yml
+
+  pre_tasks:
+    - name: verify git installation.
+      package: name=git state=present
+
+  tasks:
+    - include_tasks: tasks/boot-config.yml
