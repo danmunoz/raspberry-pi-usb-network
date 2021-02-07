@@ -11,7 +11,7 @@ I recently found out that it is possible to configure a Raspberry Pi to be used 
 - Open the `config.txt` file and add `dtoverlay=dwc2` as a new line.
 - Open the `cmdline.txt` file and insert `modules-load=dwc2,g_ether` after `rootwait`. This is a one-line file, don’t add new lines or spaces.
 After this, you can simply connect your Raspberry Pi Zero to the iPad Pro and connect via **ssh** using `raspberry.local` as the address.
----- 
+
 ## Raspberry Pi 4
 The configuration needed to use the Raspberry Pi 4 over USB-C is a bit more complex. Since USB is not directly connected to the processor -as in the Zero-, we can’t just make the changes on the microSD card on the computer, we need to do it directly on the Pi.
 I’ve set up an Ansible playbook in order to make this process a bit easier, so here you’ll find instructions on how to use this playbook. 
