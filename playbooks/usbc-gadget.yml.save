@@ -1,0 +1,71 @@
+---
+- name: Make necessary changes in config.txt
+  ini_file:
+    path: /boot/config.txt
+    no_extra_spaces: true
+    section: all
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    mode: 0755
+  with_items: '{{ config_txt_changes }}'
+
+- name: Ensure OTG functionality is enabled in cmdline.txt
+  lineinfile:
+    path: /boot/cmdline.txt
+    line: 'modules-load=dwc2'
+
+- name: Update modules file
+  lineinfile:
+    path: /etc/modules
+    line: 'libcomposite'
+
+- name: Update dhcpcd.conf file
+  lineinfile:
+    path: /etc/dhcpcd.conf
+    line: 'denyinterfaces usb0'
+
+- name: Install apache dnsmasq
+  command: apt install dnsmasq -y
+
+- name: Update /etc/dhcpcd.conf to exclude usb0
+  blockinfile:
+    path: /etc/dnsmasq.d/usb
+    create: true
+    state: present
+    mode: 0755
+    block: |
+      interface=usb0
+      dhcp-range=10.55.0.2,10.55.0.6,255.255.255.248,1h
+      dhcp-option=3
+      leasefile-ro
+
+- name: Setup Static IP Address 10.55.0.1
+  blockinfile:
+    path: /etc/network/interfaces.d/usb0
+    create: true
+    state: present
+    block: |
+      auto usb0
+      allow-hotplug usb0
+      iface usb0 inet static
+        address 10.55.0.1
+        netmask 255.255.255.248
+
+- name: Copy usb.sh into place.
+  copy:
+    remote_src: true
+    src: ./include/usb.sh
+    dest: /root/usb.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Changing perm of /root/usb.sh
+  file: dest=/root/usb.sh mode=+x
+
+- name: Cron "@reboot bash /root/usb.sh"
+  ansible.builtin.cron:
+    name: "job for reboot running usb.sh"
+    special_time: reboot
+    job: "bash /root/usb.sh"
+

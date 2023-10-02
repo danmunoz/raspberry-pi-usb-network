@@ -24,30 +24,26 @@
     path: /etc/dhcpcd.conf
     line: 'denyinterfaces usb0'
 
-- name: Install apache dnsmasq
-  command: apt install dnsmasq -y
+#- name: Install apache dnsmasq
+#  command: apt install dnsmasq -y
 
-- name: Create usb file.
-  file:
-    path: "/etc/dnsmasq.d/usb"
-    state: touch
-    mode: 0777
-
-- name: Make necessary changes in usb file
-  ini_file:
-    allow_no_value: true
+- name: Update /etc/dhcpcd.conf to exclude usb0
+  blockinfile:
     path: /etc/dnsmasq.d/usb
-    no_extra_spaces: true
-    section: all
-    option: "{{ item.option }}"
-    value: "{{ item.value }}"
+    create: true
+    state: present
     mode: 0755
-  with_items: '{{ usb_changes }}'
+    block: |
+      interface=usb0
+      dhcp-range=10.55.0.2,10.55.0.6,255.255.255.248,1h
+      dhcp-option=3
+      leasefile-ro
 
 - name: Setup Static IP Address 10.55.0.1
   blockinfile:
     path: /etc/network/interfaces.d/usb0
     create: true
+    state: present
     block: |
       auto usb0
       allow-hotplug usb0
@@ -57,18 +53,18 @@
 
 - name: Copy usb.sh into place.
   copy:
-    remote_src: true
-    src: /home/pi/raspberry-pi-usb-network/usb.sh
+    src: ./include/usb.sh
     dest: /root/usb.sh
     owner: root
     group: root
-    mode: 0644
+    mode: 0755
+#    mode: 0644
 
-- name: Changing perm of /root/usb.sh
-  file: dest=/root/usb.sh mode=+x
+#- name: Changing perm of /root/usb.sh
+#  file: dest=/root/usb.sh mode=+x
 
 - name: Cron "@reboot bash /root/usb.sh"
   ansible.builtin.cron:
-    name: "a job for reboot"
+    name: "job for reboot running usb.sh"
     special_time: reboot
     job: "bash /root/usb.sh"

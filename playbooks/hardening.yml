@@ -1,0 +1,38 @@
+---
+#- name: OS Hardening devsec
+#  become: yes
+#  collections:
+#    - devsec.hardening
+#  roles:
+#    - os_hardening
+#    - ssh_hardening
+
+- name: Upgrade all packages
+  apt:
+    name: '*'
+    update_cache: true
+    autoremove: true
+    state: latest
+
+- name: Install packages
+  apt:
+    state: present
+    update_cache: true
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - screen
+    - tmux
+#      - rtorrent
+#      - etckeeper
+    - git
+    - dnsmasq
+      
+- name: Copy screenrc
+  copy:
+    src: ./include/screenrc
+    dest: /etc/screenrc
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
