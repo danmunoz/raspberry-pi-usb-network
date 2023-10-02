@@ -26,3 +26,4 @@
     - name: usbc gadget setup
       become: yes
       import_tasks: playbooks/usbc-gadget.yml
+
