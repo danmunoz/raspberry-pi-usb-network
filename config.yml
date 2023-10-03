@@ -19,7 +19,6 @@ users_shell_changes:
   - option: root
     value: bash
 
-tasks_to_include:
-#  - hardening
-#  - usbc-gadget
-#  - docker-setup.yml
+# Plex repository settings
+plex_repo_url: "deb https://downloads.plex.tv/repo/deb public main"
+plex_repo_key: "https://downloads.plex.tv/plex-keys/PlexSign.key"

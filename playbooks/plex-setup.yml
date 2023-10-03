@@ -1,0 +1,27 @@
+---
+# tasks file for plex / debian
+
+- name: Configure Plex repository
+  apt_repository:
+    repo: "{{ plex_repo_url }}"
+    state: present
+    update_cache: false
+  register: status_plex_repo
+
+- name: Add Plex repository key
+  apt_key:
+    url: "{{ plex_repo_key }}"
+    state: present
+  register: status_plex_repo
+
+- name: Install Plex Server
+  apt:
+    name: plexmediaserver
+    state: present
+    update_cache: "{{ status_plex_repo.changed }}"
+
+- name: Start and enable Plex service
+  service:
+    name: plexmediaserver
+    state: started
+    enabled: true
