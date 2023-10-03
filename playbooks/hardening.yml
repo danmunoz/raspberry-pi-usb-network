@@ -27,6 +27,16 @@
 #      - etckeeper
     - git
     - dnsmasq
+    - exfat-fuse
+    - exfat-utils
+    - zsh
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - python3-pip
+    - virtualenv
+    - python3-setuptools
       
 - name: Copy screenrc
   copy:
@@ -36,3 +46,22 @@
     group: root
     mode: 0644
     backup: yes
+
+- name: change user shell to zsh 
+  user:
+    name: "{{ item.option }}"
+    shell: /bin/{{ item.value }}
+  with_items: '{{ users_shell_changes }}'
+
+- name: Setup zsh arrows history
+  blockinfile:
+    path: /home/{{ target_username }}/.zshrc
+    create: true
+    state: present
+    block: |
+      autoload -Uz history-search-end
+      zle -N history-beginning-search-backward-end history-search-end
+      zle -N history-beginning-search-forward-end history-search-end
+      bindkey "$terminfo[kcuu1]" history-beginning-search-backward-end
+      bindkey "$terminfo[kcud1]" history-beginning-search-forward-end
+

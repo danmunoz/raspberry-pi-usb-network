@@ -1,4 +1,6 @@
 ---
+# User some changes will be applied to, e.g. zshrc configuration etc. 
+target_username: rafaelktistakis
 # Changes to be made to the config.txt file.
 config_txt_changes:
   # Enable USB OTG mode.
@@ -11,3 +13,13 @@ config_txt_changes:
   - option: framebuffer_height
     value: 768
 
+users_shell_changes:
+  - option: rafaelktistakis
+    value: zsh
+  - option: root
+    value: bash
+
+tasks_to_include:
+#  - hardening
+#  - usbc-gadget
+#  - docker-setup.yml

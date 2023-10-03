@@ -20,10 +20,13 @@
       package: name=git state=present
 
   tasks:
-    - name: hardening
+#    - name: hardening
+#      become: yes
+#      import_tasks: playbooks/hardening.yml
+#    - name: usbc gadget setup
+#      become: yes
+#      import_tasks: playbooks/usbc-gadget.yml
+    - name: docker setup
       become: yes
-      import_tasks: playbooks/hardening.yml
-    - name: usbc gadget setup
-      become: yes
-      import_tasks: playbooks/usbc-gadget.yml
-
+      import_tasks: playbooks/docker-setup.yml
+      when: '"docker-setup.yml" in tasks_to_include'
