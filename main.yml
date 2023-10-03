@@ -6,11 +6,11 @@
 
 #- name: OS Hardening devsec
 #  become: yes
-  collections:
-    - devsec.hardening
-  roles:
-    - os_hardening
-    - ssh_hardening
+#  collections:
+#    - devsec.hardening
+#  roles:
+#    - os_hardening
+#    - ssh_hardening
 
   vars_files:
     - config.yml
