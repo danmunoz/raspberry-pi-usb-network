@@ -1,0 +1,16 @@
+setup.yml                                                            
+---
+- name: Install packages
+  apt:
+    state: present
+    update_cache: true
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - qbittorrent-nox
+- name: Create qBitTorrent User
+  user:
+    name: qbittorrent
+    state: present
+    system: true
+    create_home: true

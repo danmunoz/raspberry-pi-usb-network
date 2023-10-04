@@ -29,6 +29,9 @@
 #    - name: docker setup
 #      become: yes
 #      import_tasks: playbooks/docker-setup.yml
-    - name: plex setup
+#    - name: plex setup
+#      become: yes
+#      import_tasks: playbooks/plex-setup.yml
+    - name: rtorrent setup
       become: yes
-      import_tasks: playbooks/plex-setup.yml
+      import_tasks: playbooks/rtorrent-docker-setup.yml
