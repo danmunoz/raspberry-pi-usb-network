@@ -34,4 +34,4 @@
 #      import_tasks: playbooks/plex-setup.yml
     - name: rtorrent setup
       become: yes
-      import_tasks: playbooks/rtorrent-docker-setup.yml
+      import_tasks: playbooks/qbittorrent-setup.yml

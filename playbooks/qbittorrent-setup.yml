@@ -1,4 +1,3 @@
-setup.yml                                                            
 ---
 - name: Install packages
   apt:
@@ -8,9 +7,73 @@ setup.yml
   vars:
     packages:
     - qbittorrent-nox
+  register: installed
+
 - name: Create qBitTorrent User
   user:
     name: qbittorrent
     state: present
     system: true
     create_home: true
+
+- name: Add {{ target_username }} to qBitTorrent group
+  user:
+    name: "{{ target_username }}"
+    append: true
+    groups: qbittorrent
+
+- name: Create qBitTorrent Service file
+  blockinfile:
+    path: /etc/systemd/system/qbittorrent.service
+    create: true
+    state: present
+    block: |
+      [Unit]
+      Description=BitTorrent Client
+      After=network.target
+      
+      [Service]
+      Type=forking
+      User=qbittorrent
+      Group=qbittorrent
+      UMask=002
+      ExecStart=/usr/bin/qbittorrent-nox -d --webui-port=8080
+      Restart=on-failure
+      
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Ensure the qBitTorrent service is running
+  systemd:
+    name: qbittorrent.service
+    enabled: true
+    state: started
+
+- name: Getting Dark Theme
+  git:
+    clone: true
+    update: true
+    force: yes
+    repo: 'https://github.com/repslet/nightwalker.git'
+    dest: /home/qbittorrent/theme
+  when: installed.changed
+
+- name: Setting Theme permissions
+  file:
+    path: /home/qbittorrent/theme
+    state: directory
+    recurse: true
+#    owner: qbittorrent
+#    group: qbittorrent
+    mode: 0777
+
+- name: Set qBitTorrent settings
+  copy:
+    src: ./include/qBittorrent.conf
+    dest: /home/qbittorrent/.config/qBittorrent/qBittorrent.conf
+
+- name: Restart the qBitTorrent service
+  systemd:
+    name: qbittorrent.service
+    state: restarted
+  when: installed.changed

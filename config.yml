@@ -1,5 +1,5 @@
 ---
-# User some changes will be applied to, e.g. zshrc configuration etc. 
+# User some changes will be applied to, e.g. zshrc configuration, permissions etc. 
 target_username: rafaelktistakis
 # Changes to be made to the config.txt file.
 config_txt_changes:
