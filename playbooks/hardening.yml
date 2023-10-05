@@ -29,6 +29,7 @@
     - dnsmasq
     - exfat-fuse
     - exfat-utils
+    - unrar
     - zsh
     - apt-transport-https
     - ca-certificates
