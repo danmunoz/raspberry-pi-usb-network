@@ -1,0 +1,32 @@
+---
+
+- name: Ensures user directory for drive mount
+  file:
+    path: /media/{{ target_username }}
+    state: directory
+    owner: "{{ target_username }}"
+    group: "{{ target_username }}"
+    mode: 0777
+
+- name: Creates directory for drive mount
+  file:
+    path: /media/{{ target_username }}/{{ disk_name }}
+    state: directory
+    owner: "{{ target_username }}"
+    group: "{{ target_username }}"
+    mode: 0777
+
+- name: Getting UUID of external drive
+    shell: blkid -s UUID -o value {{ ext_drive }})
+    register: blkid_out
+
+- name: Updating fstab. Ensure you umount and mount drive again
+#  lineinfile:
+  blockinfile:
+    path: /etc/fstab
+    state: present
+    block:  |
+      UUID={{ blkid_out.stdout }} /media/{{ target_username }}/{{ disk_name }} exfat defaults,auto,umask=000,users,rw 0 0
+#    regexp: "^UUID={{ blkid_out.stdout }}"
+#    line: "UUID={{ blkid_out.stdout }} /media/{{ target_username }}/{{ disk_name }} exfat defaults,auto,umask=000,users,rw 0 0"
+
