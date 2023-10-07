@@ -1,5 +1,4 @@
 ---
-
 - name: Ensures user directory for drive mount
   file:
     path: /media/{{ target_username }}
@@ -17,8 +16,8 @@
     mode: 0777
 
 - name: Getting UUID of external drive
-    shell: blkid -s UUID -o value {{ ext_drive }})
-    register: blkid_out
+  shell: blkid -s UUID -o value {{ ext_drive }}
+  register: blkid_out
 
 - name: Updating fstab. Ensure you umount and mount drive again
 #  lineinfile:
