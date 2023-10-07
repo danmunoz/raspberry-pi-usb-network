@@ -23,6 +23,7 @@
     packages:
     - screen
     - tmux
+    - snapd
 #      - etckeeper
     - git
     - dnsmasq
@@ -37,6 +38,14 @@
     - python3-pip
     - virtualenv
     - python3-setuptools
+
+- name: Snap packages
+  snap:
+    name:
+      - core
+      - snap-store
+    state: present
+
       
 - name: Copy screenrc
   copy:
@@ -62,7 +71,7 @@
     shell: /bin/{{ item.value }}
   with_items: '{{ users_shell_changes }}'
 
-- name: Setup zsh arrows history
+- name: Setup zsh arrows history. Adding Snap into the zsh path
   blockinfile:
     path: /home/{{ target_username }}/.zshrc
     create: true
@@ -73,13 +82,14 @@
       zle -N history-beginning-search-forward-end history-search-end
       bindkey "$terminfo[kcuu1]" history-beginning-search-backward-end
       bindkey "$terminfo[kcud1]" history-beginning-search-forward-end
+      export PATH=$PATH:/snap/bin
 
 - name: Overclocking the little Pi
   blockinfile:
     path: /boot/config.txt
     create: false
     state: present
-    insertafter: "*arm_freq*"
+    insertafter: "arm_freq"
     mode: 0755
     block: |
       over_voltage=2
@@ -88,3 +98,11 @@
 #      over_voltage=6
 #      arm_freq=2147
 #      gpu_freq=750
+
+- name: Enable VNC
+  shell: "raspi-config nonint do_vnc 0"
+  changed_when: false
+
+- name: Set Boot behaviour
+  shell: "raspi-config nonint do_boot_behaviour {{ BOOTBEHAVIOUR }}"
+  changed_when: false

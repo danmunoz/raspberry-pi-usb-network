@@ -20,7 +20,7 @@
       package: name=git state=present
 
   tasks:
-    - name: hardening
+    - name: Installing and adjusting different goodies
       become: yes
       import_tasks: playbooks/goodies.yml
 #    - name: usbc gadget setup
@@ -38,3 +38,8 @@
 #    - name: external mount permissions
 #      become: yes
 #      import_tasks: playbooks/external-mount-setup.yml
+#    - name: Reboot the machine
+#      become: yes
+#      shell: "sleep 10 && reboot"
+#      async: 15
+#      poll: 0
