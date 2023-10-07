@@ -23,7 +23,6 @@
     packages:
     - screen
     - tmux
-#      - rtorrent
 #      - etckeeper
     - git
     - dnsmasq
@@ -48,6 +47,15 @@
     mode: 0644
     backup: yes
 
+- name: Copy isThrottled
+  copy:
+    src: ./include/isThrottled.sh
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: 0755
+    backup: no
+
 - name: change user shell to zsh 
   user:
     name: "{{ item.option }}"
@@ -66,3 +74,17 @@
       bindkey "$terminfo[kcuu1]" history-beginning-search-backward-end
       bindkey "$terminfo[kcud1]" history-beginning-search-forward-end
 
+- name: Overclocking the little Pi
+  blockinfile:
+    path: /boot/config.txt
+    create: false
+    state: present
+    insertafter: "*arm_freq*"
+    mode: 0755
+    block: |
+      over_voltage=2
+      arm_freq=1800
+#      If you want to get crazy try alternatively the below values instead
+#      over_voltage=6
+#      arm_freq=2147
+#      gpu_freq=750

@@ -20,9 +20,9 @@
       package: name=git state=present
 
   tasks:
-#    - name: hardening
-#      become: yes
-#      import_tasks: playbooks/hardening.yml
+    - name: hardening
+      become: yes
+      import_tasks: playbooks/goodies.yml
 #    - name: usbc gadget setup
 #      become: yes
 #      import_tasks: playbooks/usbc-gadget.yml
@@ -35,6 +35,6 @@
 #    - name: rtorrent setup
 #      become: yes
 #      import_tasks: playbooks/qbittorrent-setup.yml
-    - name: external mount permissions
-      become: yes
-      import_tasks: playbooks/external-mount-setup.yml
+#    - name: external mount permissions
+#      become: yes
+#      import_tasks: playbooks/external-mount-setup.yml
