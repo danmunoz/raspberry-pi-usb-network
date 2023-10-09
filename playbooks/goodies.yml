@@ -105,11 +105,3 @@
 - name: Set Boot behaviour
   shell: "raspi-config nonint do_boot_behaviour {{ BOOTBEHAVIOUR }}"
   changed_when: false
-
-# Install through Curl as the Snap binary seems buggy albeit an edge release
-# command to use: curl -sS https://starship.rs/install.sh | sudo sh -s -- -y
-#- name: Starship install theme
-#  shell: "/snap/bin/starship preset pure-preset -o /home/{{ target_username }}/.config/starship.toml"
-#  changed_when: false
-
-# Copy the starship.toml to ~/.config/starship.toml - permissions 0644

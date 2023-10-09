@@ -1,0 +1,12 @@
+---
+- name: Installing Starship
+  shell: curl -sS https://starship.rs/install.sh | sh -s -- -y
+  changed_when: false
+
+- name: Copy Starship preset
+  copy:
+    src: ./include/starship.toml
+    dest: /home/{{ target_username }}/.config/starship.toml
+    owner: "{{ target_username }}"
+    group: "{{ target_username }}"
+    mode: 0644

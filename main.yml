@@ -20,9 +20,9 @@
       package: name=git state=present
 
   tasks:
-    - name: Installing and adjusting different goodies
-      become: yes
-      import_tasks: playbooks/goodies.yml
+#    - name: Installing and adjusting different goodies
+#      become: yes
+#      import_tasks: playbooks/goodies.yml
 #    - name: usbc gadget setup
 #      become: yes
 #      import_tasks: playbooks/usbc-gadget.yml
@@ -38,6 +38,9 @@
 #    - name: external mount permissions
 #      become: yes
 #      import_tasks: playbooks/external-mount-setup.yml
+    - name: Starship setup
+      become: yes
+      import_tasks: playbooks/starship-setup.yml
 #    - name: Reboot the machine
 #      become: yes
 #      shell: "sleep 10 && reboot"
