@@ -24,6 +24,7 @@
     packages:
     - screen
     - tmux
+    - vim
     - snapd
 #      - etckeeper
     - git
