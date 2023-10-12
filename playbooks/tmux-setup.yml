@@ -1,0 +1,28 @@
+---
+- name: Verify tmux installation.
+  package: name=tmux state=present
+
+- name: Copy Tmux conf
+  copy:
+    src: ./include/.tmux.conf
+    dest: /home/{{ target_username }}/.tmux.conf
+    owner: "{{ target_username }}"
+    group: "{{ target_username }}"
+    mode: 0644
+
+- name: Setting Tmux Plugin Manager
+  become_user: "{{ target_username }}"
+  git:
+    clone: true
+    update: true
+    force: yes
+    repo: 'https://github.com/tmux-plugins/tpm'
+    dest: /home/{{ target_username }}/.tmux/plugins/tpm
+
+# Afer reload, install any new plugins within Tmux by hitting ctl-T and then I
+# Uninstall removed plugins by ctl-T alt-U
+# Update plugins by ctl-T U
+# Note ctl-T is the current defined Tmux prefix for command. Align if you change this. 
+- name: Reload Tmux
+  become_user: "{{ target_username }}"
+  shell: tmux source-file /home/{{ target_username }}/.tmux.conf

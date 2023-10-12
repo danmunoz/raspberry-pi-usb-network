@@ -38,9 +38,12 @@
 #    - name: external mount permissions
 #      become: yes
 #      import_tasks: playbooks/external-mount-setup.yml
-    - name: Starship setup
+#    - name: Starship setup
+#      become: yes
+#      import_tasks: playbooks/starship-setup.yml
+    - name: Tmux setup
       become: yes
-      import_tasks: playbooks/starship-setup.yml
+      import_tasks: playbooks/tmux-setup.yml
 #    - name: Reboot the machine
 #      become: yes
 #      shell: "sleep 10 && reboot"
