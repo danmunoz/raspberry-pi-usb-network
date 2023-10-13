@@ -1,0 +1,25 @@
+---
+# After installation, complete configuration in 
+# http://<ip address of your server>:8581
+- name: Add Homebridge GPG apt Key
+  apt_key:
+    url: https://repo.homebridge.io/KEY.gpg
+    state: present
+
+- name: Add Homebridge Repository
+  apt_repository:
+    repo: deb https://repo.homebridge.io stable main
+    state: present
+
+- name: Install packages
+  apt:
+    state: present
+    update_cache: true
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - homebridge
+
+- name: Add HomeBridge Plugins
+  shell: hb-service add homebridge-nest homebridge-wiz-lan homebridge-shelly && hb-service restart
+  changed_when: false
