@@ -43,3 +43,7 @@ echo -n "   Now: "
 ((($STATUS&CAPPED)!=0)) && echo "${BAD}" || echo "${GOOD}"
 echo -n "   Run: "
 ((($STATUS&HAS_CAPPED)!=0)) && echo "${BAD}" || echo "${GOOD}"
+
+
+/usr/bin/vcgencmd measure_temp
+

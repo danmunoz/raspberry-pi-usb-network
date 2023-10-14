@@ -4,11 +4,12 @@
   gather_facts: true
   ignore_errors: yes
 
-#- name: OS Hardening devsec
-#  become: yes
-#  collections:
+- name: OS Hardening devsec
+  hosts: pi
+  become: yes
+  collections:
 #    - devsec.hardening
-#  roles:
+  roles:
 #    - os_hardening
 #    - ssh_hardening
 
@@ -20,9 +21,9 @@
       package: name=git state=present
 
   tasks:
-    - name: Installing and adjusting different goodies
-      become: yes
-      import_tasks: playbooks/goodies.yml
+#    - name: Installing and adjusting different goodies
+#     become: yes
+#    import_tasks: playbooks/goodies.yml
 #    - name: usbc gadget setup
 #      become: yes
 #      import_tasks: playbooks/usbc-gadget.yml
@@ -41,9 +42,9 @@
 #    - name: Starship setup
 #      become: yes
 #      import_tasks: playbooks/starship-setup.yml
-#    - name: Tmux setup
-#      become: yes
-#      import_tasks: playbooks/tmux-setup.yml
+    - name: Tmux setup
+      become: yes
+      import_tasks: playbooks/tmux-setup.yml
 #    - name: Homebridge setup
 #      become: yes
 #      import_tasks: playbooks/homebridge-setup.yml
