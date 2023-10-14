@@ -1,12 +1,14 @@
 #!/bin/bash
-read cmd
-if [ $cmd="up" ]
+if [ "$1" = "up" ]
 then
     vncserver-virtual -RandR=1360x980
-elif [$cmd="down"]
+elif [ "$1" = "down" ]
 then
-   vncserver -kill :1
-elif
+   vncserver-virtual -kill :"$2"
+elif [ "$1" = "al" ]
+then
+   ps -ef | grep vnc
+elif [ "$1" = "l" ]
 then
    ps -ef | grep vncserver-virtual
 else
