@@ -20,9 +20,9 @@
       package: name=git state=present
 
   tasks:
-#    - name: Installing and adjusting different goodies
-#      become: yes
-#      import_tasks: playbooks/goodies.yml
+    - name: Installing and adjusting different goodies
+      become: yes
+      import_tasks: playbooks/goodies.yml
 #    - name: usbc gadget setup
 #      become: yes
 #      import_tasks: playbooks/usbc-gadget.yml
@@ -44,9 +44,9 @@
 #    - name: Tmux setup
 #      become: yes
 #      import_tasks: playbooks/tmux-setup.yml
-    - name: Homebridge setup
-      become: yes
-      import_tasks: playbooks/homebridge-setup.yml
+#    - name: Homebridge setup
+#      become: yes
+#      import_tasks: playbooks/homebridge-setup.yml
 #    - name: Reboot the machine
 #      become: yes
 #      shell: "sleep 10 && reboot"

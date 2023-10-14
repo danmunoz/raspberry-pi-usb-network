@@ -61,6 +61,15 @@
     mode: 0644
     backup: yes
 
+- name: Copy .xsessionrc
+  copy:
+    src: ./include/.xsessionrc
+    dest: /home/{{ target_username }}/.xsessionrc
+    owner: "{{ target_username }}"
+    group: "{{ target_username }}"
+    mode: 0755
+    backup: no
+
 - name: Copy .zshrc
   copy:
     src: ./include/.zshrc
@@ -74,6 +83,15 @@
   copy:
     src: ./include/isThrottled.sh
     dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: 0755
+    backup: no
+
+- name: Copy Vnc quick command prompt
+  copy:
+    src: ./include/vnc.sh
+    dest: /usr/local/bin
     owner: root
     group: root
     mode: 0755
