@@ -19,24 +19,20 @@
     repo: 'https://github.com/tmux-plugins/tpm'
     dest: /home/{{ target_username }}/.tmux/plugins/tpm
 
-- name: Adding rpi-temperature script. If tpm dracula has not been installed, this will fail
-  blockinfile:
-    path: /home/{{ target_username }}/.tmux/plugins/tmux/scripts/dracula.sh
-    state: present
-    create: false
-    insertbefore: "elif \\[ \\$plugin = \"git\" \\]; then"
-    backup: true
-    block:  |
-      elif [ $plugin = "rpi-temp" ]; then
-        IFS=' ' read -r -a colors <<< $(get_tmux_option "@dracula-rpi-temp-colors" "green dark_gray")
-        script="#($current_dir/rpi_temp.sh)"
-
 - name: Copy rpi-temp script for dracula tmux
   copy:
     src: ./include/rpi_temp.sh
     dest: /home/{{ target_username }}/.tmux/plugins/tmux/scripts/rpi_temp.sh
     owner: "{{ target_username }}"                                                                              
     group: "{{ target_username }}"                                                                              
+    mode: 0755
+
+- name: Copy rpi-throttled script for dracula tmux
+  copy:
+    src: ./include/rpi_throttled.sh
+    dest: /home/{{ target_username }}/.tmux/plugins/tmux/scripts/rpi_throttled.sh
+    owner: "{{ target_username }}"                                  
+    group: "{{ target_username }}"                                  
     mode: 0755
 
 # Afer reload, install any new plugins within Tmux by hitting ctl-T and then I
