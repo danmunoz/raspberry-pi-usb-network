@@ -1,0 +1,17 @@
+---
+- name: Installing Code Tunnel, self-hosted Server
+  shell: curl -fsSL https://code-server.dev/install.sh | sh
+  changed_when: false
+
+# Look codeserver script under include, for running the server
+# Current configuration should not be exposed to web as no-auth and no-cert has been configured
+# Only for local dev.
+
+- name: Copy codeserver command prompt
+  copy:
+    src: ./include/codeserver.sh
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+    backup: no

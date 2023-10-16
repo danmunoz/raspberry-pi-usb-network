@@ -42,12 +42,15 @@
 #    - name: Starship setup
 #      become: yes
 #      import_tasks: playbooks/starship-setup.yml
-    - name: Tmux setup
-      become: yes
-      import_tasks: playbooks/tmux-setup.yml
+#    - name: Tmux setup
+#      become: yes
+#      import_tasks: playbooks/tmux-setup.yml
 #    - name: Homebridge setup
 #      become: yes
 #      import_tasks: playbooks/homebridge-setup.yml
+    - name: Code Server (self-hosted)
+      become: yes
+      import_tasks: playbooks/code-tunnel-server-setup.yml
 #    - name: Reboot the machine
 #      become: yes
 #      shell: "sleep 10 && reboot"

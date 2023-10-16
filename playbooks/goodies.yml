@@ -17,10 +17,12 @@
     - screen
     - tmux
     - vim
+    - code
     - mosh
     - snapd
 #      - etckeeper
     - git
+    - at
     - dnsmasq
     - exfat-fuse
     - exfat-utils
