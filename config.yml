@@ -1,26 +1,4 @@
 ---
-#B1 cli, B2 cli autologin, B3 desktop, B4 desktop autologin
-BOOTBEHAVIOUR: B1
-# User some changes will be applied to, e.g. zshrc configuration, permissions etc. 
-target_username: rafaelktistakis
-# Changes to be made to the config.txt file.
-config_txt_changes:
-  # Enable USB OTG mode.
-  - option: dtoverlay
-    value: dwc2
-  # Set frame buffer width.
-  - option: framebuffer_width
-    value: 1024
-  # Set frame buffer height.
-  - option: framebuffer_height
-    value: 768
-
-users_shell_changes:
-  - option: rafaelktistakis
-    value: zsh
-  - option: root
-    value: bash
-
 # Plex repository settings
 plex_repo_url: "deb https://downloads.plex.tv/repo/deb public main"
 plex_repo_key: "https://downloads.plex.tv/plex-keys/PlexSign.key"

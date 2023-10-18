@@ -10,6 +10,7 @@
   collections:
 #    - devsec.hardening
   roles:
+    - goodies_role
 #    - os_hardening
 #    - ssh_hardening
 
@@ -48,9 +49,9 @@
 #    - name: Homebridge setup
 #      become: yes
 #      import_tasks: playbooks/homebridge-setup.yml
-    - name: Code Server (self-hosted)
-      become: yes
-      import_tasks: playbooks/code-tunnel-server-setup.yml
+    # - name: Code Server (self-hosted)
+    #   become: yes
+    #   import_tasks: playbooks/code-tunnel-server-setup.yml
 #    - name: Reboot the machine
 #      become: yes
 #      shell: "sleep 10 && reboot"
