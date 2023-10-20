@@ -1,0 +1,7 @@
+---
+# defaults file for core
+bootbehaviour:
+  B1: '01'
+  B2: '00'
+  B3: '11'
+  B4: '10'

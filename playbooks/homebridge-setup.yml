@@ -21,5 +21,8 @@
     - homebridge
 
 - name: Add HomeBridge Plugins
-  shell: hb-service add homebridge-nest homebridge-wiz-lan homebridge-shelly && hb-service restart
-  changed_when: false
+  shell: hb-service add homebridge-nest homebridge-wiz-lan homebridge-shelly
+  register: task_result
+  changed_when: "'up to date' not in task_result.stdout"
+  notify: Restart Home Bridge
+

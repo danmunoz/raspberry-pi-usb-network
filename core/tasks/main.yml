@@ -1,5 +1,5 @@
 ---
-# tasks file for goodies_role
+# tasks file for core
 - name: Upgrade all packages
   apt:
     name: '*'
@@ -49,7 +49,7 @@
       
 - name: Copy screenrc
   copy:
-    src: ./include/screenrc
+    src: screenrc
     dest: /etc/screenrc
     owner: root
     group: root
@@ -58,7 +58,7 @@
 
 - name: Copy .xsessionrc
   copy:
-    src: ./include/.xsessionrc
+    src: .xsessionrc
     dest: /home/{{ target_username }}/.xsessionrc
     owner: "{{ target_username }}"
     group: "{{ target_username }}"
@@ -67,7 +67,7 @@
 
 - name: Copy .zshrc
   copy:
-    src: ./include/.zshrc
+    src: .zshrc
     dest: /home/{{ target_username }}/.zshrc
     owner: "{{ target_username }}"
     group: "{{ target_username }}"
@@ -76,7 +76,7 @@
 
 - name: Copy isThrottled
   copy:
-    src: ./include/isThrottled.sh
+    src: isThrottled.sh
     dest: /usr/local/bin/
     owner: root
     group: root
@@ -85,7 +85,7 @@
 
 - name: Copy Vnc quick command prompt
   copy:
-    src: ./include/vnc.sh
+    src: vnc.sh
     dest: /usr/local/bin
     owner: root
     group: root
@@ -112,11 +112,30 @@
 #      over_voltage=6
 #      arm_freq=2147
 #      gpu_freq=750
+  notify: Reboot the machine
+
+
+- name: Get VNC behaviour
+  shell: raspi-config nonint get_vnc
+  register: vnc_flag
+  changed_when: false
+
+- name: Get Cli behaviour
+  shell: raspi-config nonint get_boot_cli
+  register: cli_flag
+  changed_when: false
+
+- name: Get Autologin behaviour
+  shell: raspi-config nonint get_autologin
+  register: autologin_flag
+  changed_when: false
 
 - name: Enable VNC
   shell: "raspi-config nonint do_vnc 0"
-  changed_when: false
+  when: not vnc_flag.stdout in '0'
+  notify: Reboot the machine
 
 - name: Set Boot behaviour
-  shell: "raspi-config nonint do_boot_behaviour {{ BOOTBEHAVIOUR }}"
-  changed_when: false
+  shell: raspi-config nonint do_boot_behaviour {{ BOOTBEHAVIOUR }}
+  when: not cli_flag.stdout ~ autologin_flag.stdout in bootbehaviour[BOOTBEHAVIOUR]
+  notify: Reboot the machine

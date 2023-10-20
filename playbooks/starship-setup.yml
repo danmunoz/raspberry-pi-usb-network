@@ -1,4 +1,6 @@
 ---
+# Look for get_url command
+# https://stackoverflow.com/questions/36965199/ansible-wget-then-exec-scripts-get-url-equivalent#:~:text=Consider%20using%20the%20get_url%20or%20uri%20module%20rather%20than%20running%20curl%20.&text=Note%20the%3A%20%22force%3Dyes,can%20refine%20per%20your%20case.
 - name: Installing Starship
   shell: curl -sS https://starship.rs/install.sh | sh -s -- -y
   changed_when: false
