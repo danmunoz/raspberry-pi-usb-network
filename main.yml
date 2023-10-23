@@ -23,9 +23,6 @@
       package: name=git state=present
 
   tasks:
-#    - name: Installing and adjusting different core utilities
-#     become: yes
-#    import_tasks: playbooks/core.yml
 #    - name: usbc gadget setup
 #      become: yes
 #      import_tasks: playbooks/usbc-gadget.yml
@@ -41,9 +38,9 @@
 #    - name: external mount permissions
 #      become: yes
 #      import_tasks: playbooks/external-mount-setup.yml
-   - name: Starship setup
-     become: yes
-     import_tasks: playbooks/starship-setup.yml
+  #  - name: Starship setup
+  #    become: yes
+  #    import_tasks: playbooks/starship-setup.yml
 #    - name: Tmux setup
 #      become: yes
 #      import_tasks: playbooks/tmux-setup.yml
