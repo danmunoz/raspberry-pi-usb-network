@@ -1,7 +1,7 @@
-Role Name
+Core
 =========
 
-A brief description of the role goes here.
+Core utilities for a Pi
 
 Requirements
 ------------
