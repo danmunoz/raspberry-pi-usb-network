@@ -1,4 +1,6 @@
 ---
+# User some changes will be applied to, e.g. zshrc configuration, permissions etc. 
+target_username: rafaelktistakis
 # Plex repository settings
 plex_repo_url: "deb https://downloads.plex.tv/repo/deb public main"
 plex_repo_key: "https://downloads.plex.tv/plex-keys/PlexSign.key"

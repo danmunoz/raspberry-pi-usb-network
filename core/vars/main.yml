@@ -2,8 +2,6 @@
 # vars file for core
 #B1 cli, B2 cli autologin, B3 desktop, B4 desktop autologin
 BOOTBEHAVIOUR: B1
-# User some changes will be applied to, e.g. zshrc configuration, permissions etc. 
-target_username: rafaelktistakis
 # Changes to be made to the config.txt file.
 config_txt_changes:
   # Enable USB OTG mode.
