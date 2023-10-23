@@ -8,9 +8,10 @@
   hosts: pi
   become: yes
   collections:
+    - rafaelktistakis.pi
 #    - devsec.hardening
   roles:
-    # - core
+    - core
 #    - os_hardening
 #    - ssh_hardening
 
